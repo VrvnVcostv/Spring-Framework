@@ -16,7 +16,7 @@ import com.udemy.firstsection.webapp.FirstSection.models.dto.UserDto;
 @RequestMapping("/api")
 public class UserRestController {
 
-    @GetMapping("/details")
+    @GetMapping("/details") // Gettin a JSON object by GET method and using a DTO.
     public UserDto details(){
         UserDto userDto = new UserDto();
         userDto.setUser("Andrés");
@@ -24,7 +24,7 @@ public class UserRestController {
         return userDto;
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list") // Gettin a JSON lists of objects by GET method and using a DTO.
     public List<User> list() {
         User user = new User("Gabriel", "Liante");
         User user2 = new User("Gabriel", "Nuñez");

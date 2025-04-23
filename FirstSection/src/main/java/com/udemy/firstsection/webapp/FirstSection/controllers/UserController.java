@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.udemy.firstsection.webapp.FirstSection.models.User;
 
-
+// Here I return views with Thymeleaf
 @Controller
 public class UserController {
 
-    @GetMapping("/details")
+    @GetMapping("/details") // Getting details from a Model. It is used by simplicity.
     public String details(Model model){
         User user = new User("Andrés", "Perez");
         model.addAttribute("title", "Hola Mundo Spring Boot");
@@ -23,13 +23,13 @@ public class UserController {
         return "details";
     }
     
-    @GetMapping("/list")
+    @GetMapping("/list") // Getting details from a ModelMap, it is a Model based on a HashMap. You can manipulate the data like a Map.
     public String list(ModelMap model) {
         model.addAttribute("title", "Users List");
         return "list";
     }    
 
-    @ModelAttribute("users")
+    @ModelAttribute("users") // Getting users by databinding attributes with ModelAttribute, when it is used, theres no need to assign values on a Map.
     public List<User> usersModel(){
         return Arrays.asList(
             new User("Juan", "Gomez", "juan@gmail.com"),
