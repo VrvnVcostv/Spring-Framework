@@ -7,7 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ParamDTO {
+public class ParamMixedDTO {
 
     private String message;
+    private Integer code;
 }

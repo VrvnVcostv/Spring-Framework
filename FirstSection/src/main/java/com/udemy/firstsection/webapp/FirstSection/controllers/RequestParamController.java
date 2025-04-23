@@ -4,8 +4,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udemy.firstsection.webapp.FirstSection.models.dto.ParamDTO;
+import com.udemy.firstsection.webapp.FirstSection.models.dto.ParamMixedDTO;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
@@ -22,9 +26,23 @@ public class RequestParamController {
     }
     
     @GetMapping("/bar")
-    public ParamDTO getParams(@RequestParam String text, @RequestParam Integer code) {
-        ParamDTO params = new ParamDTO();
+    public ParamMixedDTO getParams(@RequestParam String text, @RequestParam Integer code) {
+        ParamMixedDTO params = new ParamMixedDTO();
         params.setMessage(text);
+        params.setCode(code);
+        return params;
+    }
+
+    @GetMapping("/request")
+    public ParamMixedDTO getParams(HttpServletRequest request ) {
+        Integer code = 0;
+        try{
+            code = Integer.parseInt(request.getParameter("code"));
+        }catch (NumberFormatException e){
+
+        }
+        ParamMixedDTO params = new ParamMixedDTO();
+        params.setMessage(request.getParameter("message"));
         params.setCode(code);
         return params;
     }
