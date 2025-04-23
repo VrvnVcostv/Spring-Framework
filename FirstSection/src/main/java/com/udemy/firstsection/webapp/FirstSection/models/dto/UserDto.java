@@ -1,4 +1,4 @@
-package com.udemy.firstsection.webapp.FirstSection.controllers;
+package com.udemy.firstsection.webapp.FirstSection.models.dto;
 
 import lombok.Data;
 
