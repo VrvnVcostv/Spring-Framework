@@ -10,4 +10,5 @@ import lombok.NoArgsConstructor;
 public class ParamDTO {
 
     private String message;
+    private Integer code;
 }
