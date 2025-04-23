@@ -17,24 +17,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/api/params")
 public class RequestParamController {
 
-    @GetMapping("/foo")
-    public ParamDTO getParam(@RequestParam(required = false, defaultValue = "No messages received") String message) {
-
+    @GetMapping("/request")
+    public ParamDTO request(@RequestParam(required = false, defaultValue = "No messages received") String message) {
         ParamDTO param = new ParamDTO();
         param.setMessage(message);
         return param;
     }
     
     @GetMapping("/bar")
-    public ParamMixedDTO getParams(@RequestParam String text, @RequestParam Integer code) {
+    public ParamMixedDTO multipleRequest(@RequestParam String text, @RequestParam Integer code) {
         ParamMixedDTO params = new ParamMixedDTO();
         params.setMessage(text);
         params.setCode(code);
         return params;
     }
 
-    @GetMapping("/request")
-    public ParamMixedDTO getParams(HttpServletRequest request ) {
+    @GetMapping("/servlet")
+    public ParamMixedDTO servlet(HttpServletRequest request ) {
         Integer code = 0;
         try{
             code = Integer.parseInt(request.getParameter("code"));
