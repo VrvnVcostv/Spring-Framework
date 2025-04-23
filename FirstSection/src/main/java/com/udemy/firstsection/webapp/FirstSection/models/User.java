@@ -1,6 +1,5 @@
 package com.udemy.firstsection.webapp.FirstSection.models;
 
-import org.springframework.beans.factory.annotation.Value;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
