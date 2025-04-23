@@ -32,6 +32,12 @@ public class PathVariableController {
     @Value("${config.listOfValues}")
     private List<String> list;
     
+    @Value("#{'${config.listOfValues}'.toUpperCase.split(',')}")
+    private List<String> valueList;
+    
+    @Value("#{'${config.listOfValues}'.toUpperCase()}")
+    private String valueString;
+    
     @GetMapping("/onePath/{message}")
     public ParamDTO onePath(@PathVariable String message) {
         ParamDTO param = new ParamDTO();
@@ -65,6 +71,8 @@ public class PathVariableController {
         map.put("message", message);
         map.put("code", this.code);
         map.put("list", this.list);
+        map.put("valueList", this.valueList);
+        map.put("valueString", this.valueString);
 
         return map;
     }
