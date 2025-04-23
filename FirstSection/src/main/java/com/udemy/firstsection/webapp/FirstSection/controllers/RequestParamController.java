@@ -9,7 +9,6 @@ import com.udemy.firstsection.webapp.FirstSection.models.dto.ParamMixedDTO;
 import jakarta.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
