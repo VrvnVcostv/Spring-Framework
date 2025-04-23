@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +52,9 @@ public class PathVariableController {
     @Value("#{${config.valueMap}.price}")
     private Integer price;
 
+    @Autowired
+    private Environment enviroment;
+
     @GetMapping("/onePath/{message}")
     public ParamDTO onePath(@PathVariable String message) {
         ParamDTO param = new ParamDTO();
@@ -78,10 +83,13 @@ public class PathVariableController {
     
     @GetMapping("/values")
     public Map<String, Object> getValues(@Value("${config.message}") String message) {
+        Long code2 = enviroment.getProperty("config.code", Long.class);
         Map<String, Object> map = new HashMap<>();
         map.put("username", this.username);
-        map.put("message", message);
         map.put("code", this.code);
+        map.put("message", message);
+        map.put("message2", enviroment.getProperty("config.message"));
+        map.put("code2", code2);
         map.put("list", this.list);
         map.put("valueList", this.valueList);
         map.put("valueString", this.valueString);
