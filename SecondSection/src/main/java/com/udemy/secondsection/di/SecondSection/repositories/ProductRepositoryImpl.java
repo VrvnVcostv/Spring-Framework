@@ -3,13 +3,15 @@ package com.udemy.secondsection.di.SecondSection.repositories;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Repository;
 
 import com.udemy.secondsection.di.SecondSection.models.Product;
 
-@Component
+@Primary
+@Repository
 public class ProductRepositoryImpl implements ProductRepository{
-    
+
     private List<Product> data;
 
     public ProductRepositoryImpl() {

@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udemy.secondsection.di.SecondSection.models.Product;
-import com.udemy.secondsection.di.SecondSection.services.ProductServiceImpl;
+import com.udemy.secondsection.di.SecondSection.services.ProductService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class SomeController {
 
     @Autowired
-    private ProductServiceImpl productService;
+    private ProductService productService;
+
+    // public SomeController(ProductService productService) {
+    //     this.productService = productService;
+    // }
 
     @GetMapping
     public List<Product> findAll() {
