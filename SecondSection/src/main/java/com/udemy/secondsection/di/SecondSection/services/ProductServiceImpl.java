@@ -4,16 +4,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.udemy.secondsection.di.SecondSection.models.Product;
 import com.udemy.secondsection.di.SecondSection.repositories.ProductRepository;
 
-
 @Service
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
+    @Qualifier("productJPA") // This annotation it's used to select wich one of the 2 interfaces implementation do you want to use
     private ProductRepository productRepository;
 
     // public ProductServiceImpl(ProductRepository productRepository) {

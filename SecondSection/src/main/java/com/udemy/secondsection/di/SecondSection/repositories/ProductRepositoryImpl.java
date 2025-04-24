@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.udemy.secondsection.di.SecondSection.models.Product;
 
 @Primary
-@Repository
+@Repository("productImpl")
 public class ProductRepositoryImpl implements ProductRepository{
 
     private List<Product> data;

@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.udemy.secondsection.di.SecondSection.models.Product;
 
-
-@Repository
+@Repository("productJPA")
 public class ProductRepositoryJPA implements ProductRepository{
 
 
