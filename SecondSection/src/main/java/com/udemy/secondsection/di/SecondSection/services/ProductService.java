@@ -10,15 +10,15 @@ public class ProductService {
 
     private ProductRepository productRepository = new ProductRepository();
 
-    public List<Product> findAll(){
+    public List<Product> findAll(){ // When sending an Object, it its necessary to create a new instance of the product due to immutability principle.
         return productRepository.findAll().stream().map(p -> {
             Double priceImp = p.getPrice() * 1.25d;
-            p.setPrice(priceImp.longValue());
-            return p;
+            Product newProduct = new Product(p.getId(), p.getName(), p.getPrice());
+            return newProduct;
         }).collect(Collectors.toList());
     }
 
     public Product findById(Long id){
-        return null;
+        return productRepository.findById(id);
     }
 }
