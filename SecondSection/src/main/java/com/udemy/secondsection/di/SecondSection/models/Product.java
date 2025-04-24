@@ -1,6 +1,6 @@
 package com.udemy.secondsection.di.SecondSection.models;
 
-public class Product {
+public class Product implements Cloneable{
 
     private Long id;
     private String name;
@@ -38,4 +38,15 @@ public class Product {
     public void setPrice(Long price) {
         this.price = price;
     }
+
+    @Override
+    public Product clone(){
+        try {
+            return (Product) super.clone();
+        } catch (CloneNotSupportedException e) {
+            return new Product(this.getId(), this.getName(), this.getPrice());
+        }
+    }
+
+    
 }
