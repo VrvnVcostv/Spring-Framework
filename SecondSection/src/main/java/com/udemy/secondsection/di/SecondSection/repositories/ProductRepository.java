@@ -1,0 +1,30 @@
+package com.udemy.secondsection.di.SecondSection.repositories;
+
+import java.util.Arrays;
+import java.util.List;
+
+import com.udemy.secondsection.di.SecondSection.models.Product;
+
+public class ProductRepository {
+
+    private List<Product> data;
+
+    public ProductRepository() {
+    }
+
+    public ProductRepository(List<Product> data) {
+        this.data = Arrays.asList(
+            new Product(1L,"8GB RAM",300L),
+            new Product(2L,"Water",44L),
+            new Product(3L,"Beef",89L),
+            new Product(4L,"RTX 4090",299L),
+            new Product(5L,"Keyboard",500L)
+            );
+    }
+
+    public List<Product> findAll(){
+        return data;
+    };
+    
+
+}
