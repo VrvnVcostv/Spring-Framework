@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.udemy.secondsection.di.SecondSection.models.Product;
 
 @Primary
+@RequestScope
 @Repository("productImpl")
 public class ProductRepositoryImpl implements ProductRepository{
 

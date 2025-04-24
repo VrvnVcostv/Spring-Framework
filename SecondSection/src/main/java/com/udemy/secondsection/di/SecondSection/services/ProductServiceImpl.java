@@ -14,7 +14,7 @@ import com.udemy.secondsection.di.SecondSection.repositories.ProductRepository;
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
-    @Qualifier("productJPA") // This annotation it's used to select wich one of the 2 interfaces implementation do you want to use
+    @Qualifier("productImpl") // This annotation it's used to select wich one of the 2 interfaces implementation do you want to use
     private ProductRepository productRepository;
 
     // public ProductServiceImpl(ProductRepository productRepository) {
@@ -28,7 +28,8 @@ public class ProductServiceImpl implements ProductService{
             Product newProduct = (Product) p.clone(); // To keep this principle of immutabilty I clone the product in a new instance
             newProduct.setPrice(priceTax.longValue());// of the same, and now is when I can modify the price.
             return newProduct;
-            
+            // p.setPrice(priceTax.longValue());
+            // return p;
         }).collect(Collectors.toList());
     }
 
