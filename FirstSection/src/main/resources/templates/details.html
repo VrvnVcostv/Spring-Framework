@@ -13,5 +13,11 @@
         <li th:if="${user.email}" th:text="${user.email}"></li>
         <li th:if="${user.email == null}" th:text="${'No tiene email'}"></li>
     </ul>
+    <a th:href="@{/list}">Go to list</a></br>
+    <a th:href="@{/api/params/request?message=Hi, how are you}">Go to Message</a></br>
+    <a th:href="@{/api/params/request(message= 'Hi, how are you')}">Go to Message 2</a></br>
+    <a th:href="@{/api/params/bar(text='Hi how are you', code=12312)}">Go to Message 3</a></br>
+    <a th:href="@{'/api/var/onePath/' + ${title}}">Go to Message 4</a></br>
+    <a th:href="@{'/api/var/onePath/' + 'Hi everyone'}">Go to Message 5</a></br>
 </body>
 </html>
