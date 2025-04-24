@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.udemy.secondsection.di.SecondSection.models.Product;
 import com.udemy.secondsection.di.SecondSection.services.ProductServiceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/api")
 public class SomeController {
 
-    private ProductServiceImpl productService = new ProductServiceImpl();
+    @Autowired
+    private ProductServiceImpl productService;
 
     @GetMapping
     public List<Product> findAll() {
