@@ -10,9 +10,6 @@ public class ProductRepository {
     private List<Product> data;
 
     public ProductRepository() {
-    }
-
-    public ProductRepository(List<Product> data) {
         this.data = Arrays.asList(
             new Product(1L,"8GB RAM",300L),
             new Product(2L,"Water",44L),

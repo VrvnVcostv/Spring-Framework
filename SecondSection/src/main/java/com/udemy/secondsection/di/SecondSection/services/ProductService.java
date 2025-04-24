@@ -8,7 +8,7 @@ import com.udemy.secondsection.di.SecondSection.repositories.ProductRepository;
 
 public class ProductService {
 
-    private ProductRepository productRepository;
+    private ProductRepository productRepository = new ProductRepository();
 
     public List<Product> findAll(){
         return productRepository.findAll().stream().map(p -> {
