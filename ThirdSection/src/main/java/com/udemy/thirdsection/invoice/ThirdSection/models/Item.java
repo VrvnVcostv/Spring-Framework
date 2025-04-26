@@ -10,4 +10,7 @@ import lombok.NoArgsConstructor;
 public class Item {
     private Product product;
     private Integer quantity;
+    public int getImport(){
+        return quantity * product.getPrice();
+    }
 }

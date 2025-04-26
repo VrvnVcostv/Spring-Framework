@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-ThirdSectionApplication<ThirdSection>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.udemy.thirdsection.invoice.ThirdSection.ThirdSectionApplication",
+            "projectName": "ThirdSection",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

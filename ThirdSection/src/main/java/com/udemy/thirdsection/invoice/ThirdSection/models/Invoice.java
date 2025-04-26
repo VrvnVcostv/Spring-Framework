@@ -21,4 +21,8 @@ public class Invoice {
     private String description;
     @Autowired
     private List<Item> items; 
+    
+    public int getTotal(){
+        return 0;
+    }
 }
