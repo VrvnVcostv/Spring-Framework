@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "PlayStation 5",
+        "price": 499
+    },
+    {
+        "id": 2,
+        "name": "Blue coat",
+        "price": 100
+    },
+    {
+        "id": 3,
+        "name": "Beef Meat",
+        "price": 5
+    },
+    {
+        "id": 4,
+        "name": "RTX 4090 Super",
+        "price": 900
+    }
+]

@@ -12,7 +12,7 @@ import com.udemy.secondsection.di.SecondSection.models.Product;
 @Primary
 @SessionScope // Its the range of the app, with session, the app just lasts the HTTP request
 // @RequestScope // Its the range of the app, with session, the app lasts until you close the web navigator
-@Repository("productImpl")
+@Repository("productList")
 public class ProductRepositoryImpl implements ProductRepository{
 
     private List<Product> data;
