@@ -23,6 +23,13 @@ public class Invoice {
     private List<Item> items; 
     
     public int getTotal(){
-        return 0;
+        int total = 0;
+        for (Item item : items) {
+            total += item.getAmount();
+        }
+        // int total = items.stream()
+        // .map(item -> item.getAmount())
+        // .reduce(0,(sum,amount) -> sum + amount);
+        return total;
     }
 }
