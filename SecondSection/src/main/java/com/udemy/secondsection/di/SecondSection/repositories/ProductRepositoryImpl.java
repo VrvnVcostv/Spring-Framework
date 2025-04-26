@@ -5,13 +5,12 @@ import java.util.List;
 
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.context.annotation.SessionScope;
 
 import com.udemy.secondsection.di.SecondSection.models.Product;
 
-@Primary
-@SessionScope // Its the range of the app, with session, the app just lasts the HTTP request
+// @SessionScope // Its the range of the app, with session, the app just lasts the HTTP request
 // @RequestScope // Its the range of the app, with session, the app lasts until you close the web navigator
+@Primary
 @Repository("productList")
 public class ProductRepositoryImpl implements ProductRepository{
 

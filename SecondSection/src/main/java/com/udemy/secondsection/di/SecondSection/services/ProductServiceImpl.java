@@ -15,7 +15,7 @@ import com.udemy.secondsection.di.SecondSection.repositories.ProductRepository;
 public class ProductServiceImpl implements ProductService{
 
     @Autowired
-    @Qualifier("productList") // This annotation it's used to select wich one of the 2 interfaces implementation do you want to use
+    @Qualifier("productRepositoryJson") // This annotation it's used to select wich one of the 2 interfaces implementation do you want to use
     private ProductRepository productRepository;
 
     @Autowired
