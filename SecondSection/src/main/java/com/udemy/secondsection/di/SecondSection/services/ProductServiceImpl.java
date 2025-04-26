@@ -24,6 +24,7 @@ public class ProductServiceImpl implements ProductService{
     //     this.productRepository = productRepository;
     // }
 
+    @SuppressWarnings("null")
     @Override
     public List<Product> findAll(){ // When sending an Object, it its necessary to create a new instance of the product due to immutability principle.
         return productRepository.findAll().stream().map(p -> {
