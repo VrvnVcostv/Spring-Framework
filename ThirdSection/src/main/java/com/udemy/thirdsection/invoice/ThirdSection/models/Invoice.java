@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,11 +29,15 @@ public class Invoice {
     private List<Item> items; 
     
     @PostConstruct
-    public void init(){
-        System.out.println("Creando el compoente de la factura");
+    public void onInit(){
+        System.out.println("Creating invoice component");
         client.setName(client.getName().concat(" Pepe"));
         description = description.concat(" of the client: ").concat(client.getName().concat(" ").concat(client.getLastname()));
+    }
 
+    @PreDestroy
+    public void onDestroy(){
+        System.out.println("Destroying invoice component");
     }
 
     public int getTotal(){
