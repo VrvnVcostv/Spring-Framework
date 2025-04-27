@@ -18,7 +18,7 @@ import com.udemy.fourthsection.error.FourthSection.models.Error;
 public class HandlerErrorExceptionController {
 
     @ExceptionHandler(ArithmeticException.class)
-    public ResponseEntity<Error> divisionByZeroEx(Exception ex){
+    public ResponseEntity<Error> divisionByZeroEx(Exception ex){    
         Error error = new Error();
         error.setDate(new Date());
         error.setError("Division by zero");
