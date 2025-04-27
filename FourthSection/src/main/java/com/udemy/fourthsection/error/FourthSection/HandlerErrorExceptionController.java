@@ -7,11 +7,13 @@ import java.util.Map;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import com.udemy.fourthsection.error.FourthSection.exceptions.UserNotFoundException;
 import com.udemy.fourthsection.error.FourthSection.models.Error;
 
 @ControllerAdvice
@@ -49,5 +51,17 @@ public class HandlerErrorExceptionController {
         error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
         return ResponseEntity.internalServerError().body(error);
     }
+
+    @ExceptionHandler({NullPointerException.class, HttpMessageNotWritableException.class, UserNotFoundException.class})
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<Map<String, Object>> userNotFoundEx(Exception ex){
+        Map<String, Object> error = new HashMap<>(); 
+        error.put("date", new Date());
+        error.put("error", "User or role not found");
+        error.put("message", ex.getMessage());
+        error.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return ResponseEntity.internalServerError().body(error);
+    }
+
 
 }

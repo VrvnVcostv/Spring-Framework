@@ -2,6 +2,7 @@ package com.udemy.fourthsection.error.FourthSection.controllers;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import com.udemy.fourthsection.error.FourthSection.exceptions.UserNotFoundException;
 import com.udemy.fourthsection.error.FourthSection.models.domain.User;
 import com.udemy.fourthsection.error.FourthSection.services.UserService;
 
@@ -28,8 +29,11 @@ public class AppController {
     }
 
     @GetMapping("/show/{id}")
-    public User getUsers(@PathVariable String id) {
-        return userService.findById(Long.valueOf(id));
+    public User getUsers(@PathVariable Long id) {
+        User user = userService.findById(id);
+        if(user == null)throw new UserNotFoundException("User doesn't exists");
+        System.out.println(user.getLastname());
+        return userService.findById(id);
     }
     
 }
