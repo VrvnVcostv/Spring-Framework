@@ -9,6 +9,16 @@
             "projectName": "ThirdSection",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-FourthSectionApplication<FourthSection>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.udemy.fourthsection.error.FourthSection.FourthSectionApplication",
+            "projectName": "FourthSection",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
