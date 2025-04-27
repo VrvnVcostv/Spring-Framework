@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.udemy.fourthsection.error.FourthSection.models.Error;
 
@@ -14,7 +15,7 @@ import com.udemy.fourthsection.error.FourthSection.models.Error;
 public class HandlerErrorExceptionController {
 
     @ExceptionHandler(ArithmeticException.class)
-    public ResponseEntity<Error> divisionByZero(Exception ex){
+    public ResponseEntity<Error> divisionByZeroEx(Exception ex){
         Error error = new Error();
         error.setDate(new Date());
         error.setError("Division by zero");
@@ -22,5 +23,16 @@ public class HandlerErrorExceptionController {
         error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
         // return ResponseEntity.internalServerError().body(error);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value()).body(error);
+    }
+
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<Error> notFoundEx(NoHandlerFoundException ex){
+        Error error = new Error();
+        error.setDate(new Date());
+        error.setError("API REST not found");
+        error.setMessage(ex.getMessage());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        // return ResponseEntity.notFound().build();
+        return ResponseEntity.status(HttpStatus.NOT_FOUND.value()).body(error);
     }
 }
