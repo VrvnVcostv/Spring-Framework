@@ -19,6 +19,16 @@
             "projectName": "FourthSection",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-FifthSectionApplication<FifthSection>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.udemy.fifthsection.interceptor.FifthSection.FifthSectionApplication",
+            "projectName": "FifthSection",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
