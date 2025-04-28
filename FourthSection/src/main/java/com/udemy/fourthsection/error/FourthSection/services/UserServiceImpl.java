@@ -2,6 +2,7 @@ package com.udemy.fourthsection.error.FourthSection.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findById(long id) {
+    public Optional<User> findById(long id) {
         User newUser = null;
         for (User user : users) {
             if (user.getId() == id) {
@@ -30,7 +31,7 @@ public class UserServiceImpl implements UserService{
                 break;
             }
         }
-        return newUser;
+        return Optional.ofNullable(newUser);
     }
 
     @Override

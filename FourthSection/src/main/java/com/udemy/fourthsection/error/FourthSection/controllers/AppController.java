@@ -30,10 +30,9 @@ public class AppController {
 
     @GetMapping("/show/{id}")
     public User getUsers(@PathVariable Long id) {
-        User user = userService.findById(id);
-        if(user == null)throw new UserNotFoundException("User doesn't exists");
+        User user = userService.findById(id).orElseThrow(() -> new UserNotFoundException("User doesn't exists"));
         System.out.println(user.getLastname());
-        return userService.findById(id);
+        return userService.findById(id).orElseThrow();
     }
     
 }
