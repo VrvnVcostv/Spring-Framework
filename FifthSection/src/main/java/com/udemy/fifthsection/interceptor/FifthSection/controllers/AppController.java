@@ -1,4 +1,4 @@
-package com.udemy.fifthsection.interceptor.FifthSection;
+package com.udemy.fifthsection.interceptor.FifthSection.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

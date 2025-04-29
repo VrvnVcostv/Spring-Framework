@@ -1,14 +1,20 @@
 package com.udemy.fifthsection.interceptor.FifthSection.interceptors;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,7 +32,16 @@ public class LoadingTimeInterceptor implements HandlerInterceptor {
         request.setAttribute("start", System.currentTimeMillis());
         Random delay = new Random();
         Thread.sleep(delay.nextInt(500));
-        return true;
+        Map<String, String> json = new HashMap<>();
+        json.put("error", "You dont have access this resource");
+        json.put("date", new Date().toString());
+        ObjectMapper mapper = new ObjectMapper();
+        String jsonString = mapper.writeValueAsString(json);
+        response.setContentType("application/json");
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.getWriter().write(jsonString);
+        return false;
+        // return true;
     }
     
     @Override
