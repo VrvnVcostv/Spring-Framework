@@ -39,6 +39,16 @@
             "projectName": "SixthSection",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-SeventhSectionApplication<SeventhSection>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.udemy.seventhsection.aop.SeventhSection.SeventhSectionApplication",
+            "projectName": "SeventhSection",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
