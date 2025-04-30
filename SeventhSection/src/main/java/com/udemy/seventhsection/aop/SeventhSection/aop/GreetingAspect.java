@@ -10,7 +10,6 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
@@ -23,38 +22,35 @@ public class GreetingAspect {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Pointcut("execution(* com.udemy.seventhsection.aop.SeventhSection.services.GreetingService.*(..))")
-    private void greetingLoggerPointCut(){};
-
-    @Before("greetingLoggerPointCut()")
+    @Before("GreetingServicePointcuts.greetingLoggerPointCut()")
     public void loggerBefore(JoinPoint joinPoint) {
         String metod = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("Before: " + metod + " with the args " + args);
     }
 
-    @After("greetingLoggerPointCut()")
+    @After("GreetingServicePointcuts.greetingLoggerPointCut()")
     public void loggerAfter(JoinPoint joinPoint) {
         String metod = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("After: " + metod + " with the args " + args);
     }
 
-    @AfterReturning("greetingLoggerPointCut()") // It executes before the @After decorator
+    @AfterReturning("GreetingServicePointcuts.greetingLoggerPointCut()") // It executes before the @After decorator
     public void loggerAfterReturning(JoinPoint joinPoint) {
         String metod = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("After return: " + metod + " with the args " + args);
     }
 
-    @AfterThrowing("greetingLoggerPointCut()")
+    @AfterThrowing("GreetingServicePointcuts.greetingLoggerPointCut()")
     public void loggerAfterThrowing(JoinPoint joinPoint) {
         String metod = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("After throwing a exception: " + metod + " with the args " + args);
     }
 
-    @Around("greetingLoggerPointCut()")
+    @Around("GreetingServicePointcuts.greetingLoggerPointCut()")
     public Object loggerAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
         String method = proceedingJoinPoint.getSignature().getName();
         String args = Arrays.toString(proceedingJoinPoint.getArgs());
