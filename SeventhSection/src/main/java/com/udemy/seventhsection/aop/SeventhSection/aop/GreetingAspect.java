@@ -10,47 +10,51 @@ import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-@Order(1)
+@Order(2)
 @Aspect
 @Component
 public class GreetingAspect {
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Before("execution(* com.udemy.seventhsection.aop.SeventhSection.services.GreetingService.*(..))")
+    @Pointcut("execution(* com.udemy.seventhsection.aop.SeventhSection.services.GreetingService.*(..))")
+    private void greetingLoggerPointCut(){};
+
+    @Before("greetingLoggerPointCut()")
     public void loggerBefore(JoinPoint joinPoint) {
         String metod = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("Before: " + metod + " with the args " + args);
     }
 
-    @After("execution(* com.udemy.seventhsection.aop.SeventhSection.services.GreetingService.*(..))")
+    @After("greetingLoggerPointCut()")
     public void loggerAfter(JoinPoint joinPoint) {
         String metod = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("After: " + metod + " with the args " + args);
     }
 
-    @AfterReturning("execution(* com.udemy.seventhsection.aop.SeventhSection.services.GreetingService.*(..))") // It executes before the @After decorator
+    @AfterReturning("greetingLoggerPointCut()") // It executes before the @After decorator
     public void loggerAfterReturning(JoinPoint joinPoint) {
         String metod = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("After return: " + metod + " with the args " + args);
     }
 
-    @AfterThrowing("execution(* com.udemy.seventhsection.aop.SeventhSection.services.GreetingService.*(..))")
+    @AfterThrowing("greetingLoggerPointCut()")
     public void loggerAfterThrowing(JoinPoint joinPoint) {
         String metod = joinPoint.getSignature().getName();
         String args = Arrays.toString(joinPoint.getArgs());
         logger.info("After throwing a exception: " + metod + " with the args " + args);
     }
 
-    @Around("execution(* com.udemy.seventhsection.aop.SeventhSection.services.GreetingService.*(..))")
+    @Around("greetingLoggerPointCut()")
     public Object loggerAround(ProceedingJoinPoint proceedingJoinPoint) throws Throwable{
         String method = proceedingJoinPoint.getSignature().getName();
         String args = Arrays.toString(proceedingJoinPoint.getArgs());
