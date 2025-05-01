@@ -1,5 +1,6 @@
 package com.udemy.eighthsection.jpa.EighthSection;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,12 @@ public class EighthSectionApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<Person> persons = (List<Person>) repository.findAll();
-		
-		persons.stream().forEach(person ->{
-			System.out.println(person);
-		});
+		// List<Person> persons = (List<Person>) repository.findAll();
+		Person p = new Person(0L,"Bruno","Acosta","Java");
+		repository.save(p);
+		// persons.stream().forEach(person ->{
+		// 	System.out.println(person);
+		// });
 	}
 
 }

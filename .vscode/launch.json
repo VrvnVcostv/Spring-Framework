@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EighthSectionApplication",
+            "request": "launch",
+            "mainClass": "com.udemy.eighthsection.jpa.EighthSection.EighthSectionApplication",
+            "projectName": "EighthSection"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-ThirdSectionApplication<ThirdSection>",
             "request": "launch",
             "cwd": "${workspaceFolder}",
