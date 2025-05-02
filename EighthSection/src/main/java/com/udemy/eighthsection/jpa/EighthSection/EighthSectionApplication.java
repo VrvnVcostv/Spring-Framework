@@ -115,12 +115,24 @@ public class EighthSectionApplication implements CommandLineRunner{
 	@Transactional(readOnly = true)
 	public void customQueryBetween(){
 		System.out.println("=============================== List by Id ranges ===============================");
-		List<Person> persons = repository.findAllBetweenId();
+		List<Person> persons = repository.findAllBetweenId(2L,5L);
 		persons.forEach(System.out::println);
 
 		System.out.println("=============================== List by Name ranges ===============================");
-		List<Person> personsNames = repository.findAllBetweenName();
+		List<Person> personsNames = repository.findAllBetweenName("A", "J");
 		personsNames.forEach(System.out::println);
+
+		System.out.println("=============================== List by Id ranges not custom ===============================");
+		List<Person> personsNotCustom = repository.findAllBetweenName("A", "J");
+		personsNotCustom.forEach(System.out::println);
+
+		System.out.println("=============================== List by Name ranges  not custom ===============================");
+		List<Person> personsNamesNotCustom = repository.findAllBetweenName("A", "J");
+		personsNamesNotCustom.forEach(System.out::println);
+
+		System.out.println("=============================== List by Name ranges and Order ===============================");
+		List<Person> personsNamesOrdered = repository.findAllBetweenNameOrdered("A", "Z");
+		personsNamesOrdered.forEach(System.out::println);
 
 	}
 

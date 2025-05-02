@@ -11,8 +11,21 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    List<Person> findByIdBetween(Long id1, Long id2);
+
+    List<Person> findByNameBetween(String letter1, String letter2);
+
+    @Query("select p from Person p where p.name between ?1 and ?2")
+    List<Person> findAllBetweenName(String letter1, String letter2);
+
+    @Query("select p from Person p where p.name between ?1 and ?2 order by p.name, p.lastname desc")
+    List<Person> findAllBetweenNameOrdered(String letter1, String letter2);
+
     @Query("select p from Person p where p.name between 'A' and 'M'")
     List<Person> findAllBetweenName();
+
+    @Query("select p from Person p where p.id between ?1 and ?2")
+    List<Person> findAllBetweenId(Long letter1, Long letter2);
 
     @Query("select p from Person p where p.id between 2 and 5")
     List<Person> findAllBetweenId();
