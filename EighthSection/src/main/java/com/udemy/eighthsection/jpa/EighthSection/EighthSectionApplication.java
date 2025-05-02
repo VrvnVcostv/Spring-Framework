@@ -33,9 +33,22 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// 	System.out.println(person);
 		// });
 
-		delete();
+		customQuery();
 
 	}
+
+	@Transactional(readOnly = true)
+	public void customQuery(){
+		Scanner scanner = new Scanner(System.in);
+
+		System.out.println("=============================== Gets the name by Id ===============================");
+		System.out.println("Give me the Id to get the name:");
+		Long id = scanner.nextLong();
+		scanner.close();
+		String name = repository.getFullnameById(id);
+		System.out.println(name);
+	}
+
 
 	@Transactional
 	public void delete(){
@@ -44,6 +57,20 @@ public class EighthSectionApplication implements CommandLineRunner{
 		System.out.println("Give me the ID of the field you want to delete");
 		Long id = scanner.nextLong();
 		repository.deleteById(id);
+		repository.findAll().forEach(System.out::println);
+		scanner.close();
+	}
+
+	@Transactional
+	public void delete2(){
+		repository.findAll().forEach(System.out::println);
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Give me the ID of the field you want to delete");
+		Long id = scanner.nextLong();
+
+		Optional<Person> optionalPerson = repository.findById(id);
+		optionalPerson.ifPresentOrElse(repository::delete, () -> System.out.println("Sorry, there's no person with ID: " + id));
+
 		repository.findAll().forEach(System.out::println);
 		scanner.close();
 	}
