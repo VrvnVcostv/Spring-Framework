@@ -11,6 +11,21 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    @Query("select p.id, upper(p.name), lower(p.lastname), upper(p.programmingLanguage) from Person p")
+    List<Object[]> findAllPersonDataListCase();
+
+    @Query("select upper(concat(p.name, ' ', p.lastname)) from Person p")
+    List<String> findAllFullnameConcatUpper();
+
+    @Query("select lower(concat(p.name, ' ', p.lastname)) from Person p")
+    List<String> findAllFullnameConcatLower();
+
+    @Query("select concat(p.name, ' ', p.lastname) from Person p")
+    List<String> findAllFullnameConcat();
+
+    @Query("select p.name || ' ' || p.lastname from Person p")
+    List<String> findAllFullnamePipe();
+
     @Query("select p.name from Person p")
     List<String> findAllNames();
 

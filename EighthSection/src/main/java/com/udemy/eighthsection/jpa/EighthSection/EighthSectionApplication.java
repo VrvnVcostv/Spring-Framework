@@ -34,7 +34,7 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// 	System.out.println(person);
 		// });
 
-		customQueryDistinct();
+		customQueryConcatUpperLower();
 
 	}
 
@@ -91,6 +91,25 @@ public class EighthSectionApplication implements CommandLineRunner{
 		System.out.println("=============================== Count distincts Programming Languages ===============================");
 		Long total = repository.findAllProgrammingLanguageDistinctCount();
 		System.out.println("Programming languages total: " + total);
+	}
+
+	@Transactional(readOnly = true)
+	public void customQueryConcatUpperLower(){
+		System.out.println("=============================== List by Fullnames ===============================");
+		List<String> fullnames = repository.findAllFullnamePipe();
+		fullnames.forEach(System.out::println);
+
+		System.out.println("=============================== List by Fullnames ===============================");
+		List<String> upper = repository.findAllFullnameConcatUpper();
+		upper.forEach(System.out::println);
+
+		System.out.println("=============================== List by Fullnames ===============================");
+		List<String> lower = repository.findAllFullnameConcatLower();
+		lower.forEach(System.out::println);
+
+		System.out.println("=============================== List by Fullnames ===============================");
+		List<Object[]> fullCase = repository.findAllPersonDataListCase();
+		fullCase.forEach(p -> System.out.println("id= " + p[0] + " name= " + p[1] + " fullname= " + p[2] + " language= " + p[3]));
 	}
 
 
