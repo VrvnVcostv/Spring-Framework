@@ -42,7 +42,8 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// }
 		// repository.findById(2L).orElseThrow();
 		// System.out.println(person);
-		repository.findById(1L).ifPresent(System.out::println);
+		repository.findOne(1L).ifPresent(System.out::println);
+		repository.findByNameContaining("ria").ifPresent(System.out::println);
 	}
 
 	public void list(){
