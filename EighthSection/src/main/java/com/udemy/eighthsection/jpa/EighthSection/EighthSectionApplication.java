@@ -33,18 +33,37 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// 	System.out.println(person);
 		// });
 
-		create();
+		update();
 
+	}
+
+	@Transactional
+	public void update(){
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Give me the ID of the field you want to modify");
+		Long id = scanner.nextLong();
+		Optional<Person> optionalPerson = repository.findById(id);
+		optionalPerson.ifPresent(person ->{
+			System.out.println("Person finded:");
+			System.out.println(person);
+			System.out.println("Insert programming language:");
+			String programLanguage = scanner.next();
+			person.setProgrammingLanguage(programLanguage);
+			Person newPerson = repository.save(person);
+			System.out.println("Person finded with modification:");
+			System.out.println(newPerson);
+		});
+		scanner.close();
 	}
 
 	@Transactional
 	public void create(){
 		Scanner scanner = new Scanner(System.in);
-		System.out.println("Gimme name:");
+		System.out.println("Give me name:");
 		String name = scanner.next();
-		System.out.println("Gimme lastname:");
+		System.out.println("Give me lastname:");
 		String lastname = scanner.next();
-		System.out.println("Gimme programming language:");
+		System.out.println("Give me programming language:");
 		String programmingLanguage = scanner.next();
 		scanner.close();
 
