@@ -11,6 +11,18 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    @Query("select min(p.id), max(p.id), sum(p.id), avg(length(p.name)), count(p.id) from Person p")
+    Object getResumeAggregationFunction();
+
+    @Query("select max(length(p.name)) from Person p")
+    Long getMaxNameLength();
+
+    @Query("select min(length(p.name)) from Person p")
+    Long getMinNameLength();
+
+    @Query("select p.name, length(p.name) from Person p")
+    List<Object[]> getPersonNameLenght();
+
     @Query("select count(p) from Person p")
     Long totalPerson();
 
