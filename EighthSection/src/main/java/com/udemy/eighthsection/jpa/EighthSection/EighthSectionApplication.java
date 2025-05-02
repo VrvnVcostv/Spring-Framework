@@ -3,11 +3,14 @@ package com.udemy.eighthsection.jpa.EighthSection;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
+import org.hibernate.annotations.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.udemy.eighthsection.jpa.EighthSection.entities.Person;
 import com.udemy.eighthsection.jpa.EighthSection.repositories.PersonRepository;
@@ -34,12 +37,25 @@ public class EighthSectionApplication implements CommandLineRunner{
 
 	}
 
+	@Transactional
 	public void create(){
-		Person person = new Person(null, "Lalo", "Thor", "Python");
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Gimme name:");
+		String name = scanner.next();
+		System.out.println("Gimme lastname:");
+		String lastname = scanner.next();
+		System.out.println("Gimme programming language:");
+		String programmingLanguage = scanner.next();
+		scanner.close();
+
+		Person person = new Person(null, name, lastname, programmingLanguage);
+
 		Person newPerson = repository.save(person);
-		System.out.println(newPerson);
+		
+		repository.findById(newPerson.getId()).ifPresent(System.out::println);
 	}
 
+	@Transactional(readOnly = true)
 	public void findOne(){
 		// Person person = null;
 		// Optional<Person> optinalPerson = repository.findById(1L);
@@ -52,6 +68,7 @@ public class EighthSectionApplication implements CommandLineRunner{
 		repository.findByNameContaining("ria").ifPresent(System.out::println);
 	}
 
+	@Transactional(readOnly = true)
 	public void list(){
 		List<Object[]> data = repository.obtenerPersonData();
 		data.stream().forEach(d ->{
