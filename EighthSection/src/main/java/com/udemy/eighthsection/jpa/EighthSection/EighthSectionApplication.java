@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.udemy.eighthsection.jpa.EighthSection.dto.PersonDTO;
 import com.udemy.eighthsection.jpa.EighthSection.entities.Person;
 import com.udemy.eighthsection.jpa.EighthSection.repositories.PersonRepository;
 
@@ -65,6 +66,10 @@ public class EighthSectionApplication implements CommandLineRunner{
 		System.out.println("=============================== List by Person by custom instance ===============================");
 		List<Person> persons = repository.findAllCustomPerson();
 		persons.forEach(System.out::println);
+
+		System.out.println("=============================== List by PersonDTO by custom instance ===============================");
+		List<PersonDTO> personDTO = repository.findAllCustomPersonDTO();
+		personDTO.forEach(System.out::println);
 
 	}
 

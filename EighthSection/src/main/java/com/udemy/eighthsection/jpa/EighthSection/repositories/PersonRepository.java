@@ -3,6 +3,7 @@ package com.udemy.eighthsection.jpa.EighthSection.repositories;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import com.udemy.eighthsection.jpa.EighthSection.dto.PersonDTO;
 import com.udemy.eighthsection.jpa.EighthSection.entities.Person;
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,9 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
 
     @Query("select new Person(p.name, p.lastname) from Person p")
     List<Person> findAllCustomPerson();
+
+    @Query("select new com.udemy.eighthsection.jpa.EighthSection.dto.PersonDTO(p.name, p.lastname) from Person p")
+    List<PersonDTO> findAllCustomPersonDTO();
     
     @Query("select p.name from Person p where p.id =?1")
     String getNameById(Long id);
