@@ -23,9 +23,8 @@ public class EighthSectionApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		List<Person> persons = (List<Person>) repository.findAll();
-		// Person p = new Person(0L,"Bruno","Acosta","Java");
-		// repository.save(p);
+		// List<Person> persons = (List<Person>) repository.findAll();
+		List<Person> persons = (List<Person>) repository.findByProgrammingLanguageAndName("Java", "Maria");
 		persons.stream().forEach(person ->{
 			System.out.println(person);
 		});
