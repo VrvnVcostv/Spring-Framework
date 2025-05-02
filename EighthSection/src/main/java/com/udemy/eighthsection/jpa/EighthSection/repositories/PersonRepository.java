@@ -11,6 +11,18 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    @Query("select count(p) from Person p")
+    Long totalPerson();
+
+    @Query("select min(p.id) from Person p")
+    Long minId();
+    
+    @Query("select max(p.id) from Person p")
+    Long maxId();
+
+    @Query("select p from Person p order by p.name asc")
+    List<Person> getAllOrdered();
+
     List<Person> findByIdBetween(Long id1, Long id2);
 
     List<Person> findByNameBetween(String letter1, String letter2);

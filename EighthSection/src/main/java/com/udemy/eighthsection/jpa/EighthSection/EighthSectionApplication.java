@@ -34,7 +34,7 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// 	System.out.println(person);
 		// });
 
-		customQueryBetween();
+		customQueryWithAggregationFunctions();
 
 	}
 
@@ -134,6 +134,32 @@ public class EighthSectionApplication implements CommandLineRunner{
 		List<Person> personsNamesOrdered = repository.findAllBetweenNameOrdered("A", "Z");
 		personsNamesOrdered.forEach(System.out::println);
 
+	}
+
+	@Transactional(readOnly = true)
+	public void customQueryBetween2(){
+		System.out.println("=============================== List by Id ranges ===============================");
+		List<Person> persons = repository.findAllBetweenId(2L,5L);
+		persons.forEach(System.out::println);
+
+		persons = repository.getAllOrdered();
+		persons.forEach(System.out::println);
+	}
+
+	@Transactional(readOnly = true)
+	public void customQueryWithAggregationFunctions(){
+		System.out.println("=============================== Aggregation Functions ===============================");
+		Long total = repository.totalPerson();
+		System.out.println(total);
+		
+		System.out.println("=============================== Aggregation Functions ===============================");
+		Long max = repository.maxId();
+		System.out.println(max);
+
+		System.out.println("=============================== Aggregation Functions ===============================");
+		Long min = repository.minId();
+		System.out.println(min);
+		
 	}
 
 
