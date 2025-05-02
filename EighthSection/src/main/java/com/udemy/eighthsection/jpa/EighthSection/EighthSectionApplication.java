@@ -34,7 +34,7 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// 	System.out.println(person);
 		// });
 
-		customQueryConcatUpperLower();
+		customQueryBetween();
 
 	}
 
@@ -110,6 +110,18 @@ public class EighthSectionApplication implements CommandLineRunner{
 		System.out.println("=============================== List by Fullnames ===============================");
 		List<Object[]> fullCase = repository.findAllPersonDataListCase();
 		fullCase.forEach(p -> System.out.println("id= " + p[0] + " name= " + p[1] + " fullname= " + p[2] + " language= " + p[3]));
+	}
+
+	@Transactional(readOnly = true)
+	public void customQueryBetween(){
+		System.out.println("=============================== List by Id ranges ===============================");
+		List<Person> persons = repository.findAllBetweenId();
+		persons.forEach(System.out::println);
+
+		System.out.println("=============================== List by Name ranges ===============================");
+		List<Person> personsNames = repository.findAllBetweenName();
+		personsNames.forEach(System.out::println);
+
 	}
 
 
