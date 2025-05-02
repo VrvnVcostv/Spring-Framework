@@ -33,8 +33,19 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// 	System.out.println(person);
 		// });
 
-		update();
+		delete();
 
+	}
+
+	@Transactional
+	public void delete(){
+		repository.findAll().forEach(System.out::println);
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Give me the ID of the field you want to delete");
+		Long id = scanner.nextLong();
+		repository.deleteById(id);
+		repository.findAll().forEach(System.out::println);
+		scanner.close();
 	}
 
 	@Transactional
