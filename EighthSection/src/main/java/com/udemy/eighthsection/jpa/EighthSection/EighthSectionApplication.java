@@ -33,7 +33,7 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// 	System.out.println(person);
 		// });
 
-		customQuery();
+		customQuery2();
 
 	}
 
@@ -51,6 +51,21 @@ public class EighthSectionApplication implements CommandLineRunner{
 		System.out.println("=============================== Getting custom fields by Id ===============================");
 		Object[] personReg = (Object[]) repository.obtenerPersonFullDataById(id);
 		System.out.println("Id: " + personReg[0] + " Name: " + personReg[1] +" Lastname: " + personReg[2] +" Programming Language: " + personReg[3]);
+	}
+
+	@Transactional(readOnly = true)
+	public void customQuery2(){
+		System.out.println("=============================== List by Person and programming language ===============================");
+		List<Object[]> personRegs = repository.findAllMixPersonDataList();
+
+		personRegs.forEach(p -> {
+			System.out.println("Programming language: " + p[1] + " and Person: " + p[0]);
+		});
+
+		System.out.println("=============================== List by Person by custom instance ===============================");
+		List<Person> persons = repository.findAllCustomPerson();
+		persons.forEach(System.out::println);
+
 	}
 
 
