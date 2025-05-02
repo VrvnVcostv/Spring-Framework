@@ -11,6 +11,9 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    @Query("select p from Person p where p.id in ?1")
+    List<Person> getPersonsById(List<Long> ids);
+
     @Query("select p.name, length(p.name) from Person p where length(p.name)=(select max(length(p.name)) from Person p)")
     List<Object[]> getLongestName();
 

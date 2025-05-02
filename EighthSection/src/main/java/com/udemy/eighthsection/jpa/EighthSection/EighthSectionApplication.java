@@ -1,5 +1,6 @@
 package com.udemy.eighthsection.jpa.EighthSection;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
@@ -34,7 +35,7 @@ public class EighthSectionApplication implements CommandLineRunner {
 		// System.out.println(person);
 		// });
 
-		subQueries();
+		whereIn();
 
 	}
 
@@ -206,6 +207,13 @@ public class EighthSectionApplication implements CommandLineRunner {
 			System.out.println("name: " + r[0] + " length: " + r[1]);
 		});
 
+	}
+
+	@Transactional(readOnly = true)
+	public void whereIn() {
+		System.out.println("=============================== Where in ===============================");
+		List<Person> register = repository.getPersonsById(Arrays.asList(1L,4L,7L,9L));
+		register.forEach(System.out::println);
 	}
 
 	
