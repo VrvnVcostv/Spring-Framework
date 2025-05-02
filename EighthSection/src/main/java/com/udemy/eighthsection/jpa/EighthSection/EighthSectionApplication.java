@@ -8,7 +8,6 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.udemy.eighthsection.jpa.EighthSection.entities.Person;
 import com.udemy.eighthsection.jpa.EighthSection.repositories.PersonRepository;
 
 @SpringBootApplication
@@ -24,10 +23,21 @@ public class EighthSectionApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// List<Person> persons = (List<Person>) repository.findAll();
-		List<Person> persons = (List<Person>) repository.findByProgrammingLanguageAndName("Java", "Maria");
-		persons.stream().forEach(person ->{
-			System.out.println(person);
+		// List<Person> persons = (List<Person>) repository.findByProgrammingLanguageAndName("Java", "Maria");
+		// persons.stream().forEach(person ->{
+		// 	System.out.println(person);
+		// });
+
+		List<Object[]> data = repository.obtenerPersonData();
+		data.stream().forEach(d ->{
+			System.out.println(d[0] + " es experto en " + d[1]);
 		});
+		System.out.println("-----------------");
+		List<Object[]> data2 = repository.obtenerPersonData("María", "Java");
+		data2.stream().forEach(d ->{
+			System.out.println(d[0] + " es experto en " + d[1]);
+		});
+
 	}
 
 }
