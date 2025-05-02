@@ -34,7 +34,7 @@ public class EighthSectionApplication implements CommandLineRunner {
 		// System.out.println(person);
 		// });
 
-		customQueryWithAggregationFunctions();
+		subQueries();
 
 	}
 
@@ -191,6 +191,24 @@ public class EighthSectionApplication implements CommandLineRunner {
 		System.out.println("Min: " + resumeReg[0] + " Max: " + resumeReg[1] + " Sum: " + resumeReg[2] + " Avg: " + resumeReg[3] + " Count: " + resumeReg[4]);
 
 	}
+
+	@Transactional(readOnly = true)
+	public void subQueries() {
+		System.out.println("=============================== Query by shorter name ===============================");
+		List<Object[]> register = repository.getShorterName();
+		register.forEach(r -> {
+			System.out.println("name: " + r[0] + " length: " + r[1]);
+		});
+
+		System.out.println("=============================== Query by longest name ===============================");
+		register = repository.getLongestName();
+		register.forEach(r -> {
+			System.out.println("name: " + r[0] + " length: " + r[1]);
+		});
+
+	}
+
+	
 
 	@Transactional
 	public void delete() {
