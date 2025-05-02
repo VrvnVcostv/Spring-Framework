@@ -11,6 +11,18 @@ import java.util.Optional;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    @Query("select p.name from Person p")
+    List<String> findAllNames();
+
+    @Query("select distinct(p.name) from Person p")
+    List<String> findAllNamesDistinct();
+
+    @Query("select count(distinct(p.programmingLanguage)) from Person p")
+    long findAllProgrammingLanguageDistinctCount();
+
+    @Query("select distinct(p.programmingLanguage) from Person p")
+    List<String> findAllProgrammingLanguageDistinct();
+
     @Query("select new Person(p.name, p.lastname) from Person p")
     List<Person> findAllCustomPerson();
 

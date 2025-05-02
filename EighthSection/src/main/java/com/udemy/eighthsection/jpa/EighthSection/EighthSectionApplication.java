@@ -34,7 +34,7 @@ public class EighthSectionApplication implements CommandLineRunner{
 		// 	System.out.println(person);
 		// });
 
-		customQuery2();
+		customQueryDistinct();
 
 	}
 
@@ -70,7 +70,27 @@ public class EighthSectionApplication implements CommandLineRunner{
 		System.out.println("=============================== List by PersonDTO by custom instance ===============================");
 		List<PersonDTO> personDTO = repository.findAllCustomPersonDTO();
 		personDTO.forEach(System.out::println);
+		
 
+	}
+
+	@Transactional(readOnly = true)
+	public void customQueryDistinct(){
+		System.out.println("=============================== List by Person by names ===============================");
+		List<String> names = repository.findAllNames();
+		names.forEach(System.out::println);
+
+		System.out.println("=============================== List by Person distinct names ===============================");
+		List<String> namesDistinct = repository.findAllNamesDistinct();
+		namesDistinct.forEach(System.out::println);
+
+		System.out.println("=============================== List distincts Programming Languages ===============================");
+		List<String> laguagesDistinct = repository.findAllProgrammingLanguageDistinct();
+		laguagesDistinct.forEach(System.out::println);
+
+		System.out.println("=============================== Count distincts Programming Languages ===============================");
+		Long total = repository.findAllProgrammingLanguageDistinctCount();
+		System.out.println("Programming languages total: " + total);
 	}
 
 
