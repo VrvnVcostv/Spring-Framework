@@ -41,12 +41,16 @@ public class EighthSectionApplication implements CommandLineRunner{
 	public void customQuery(){
 		Scanner scanner = new Scanner(System.in);
 
-		System.out.println("=============================== Gets the name by Id ===============================");
+		System.out.println("=============================== Getting the name by Id ===============================");
 		System.out.println("Give me the Id to get the name:");
 		Long id = scanner.nextLong();
 		scanner.close();
 		String name = repository.getFullnameById(id);
+		System.out.println("=============================== Showing the fullname by Id ===============================");
 		System.out.println(name);
+		System.out.println("=============================== Getting custom fields by Id ===============================");
+		Object[] personReg = (Object[]) repository.obtenerPersonFullDataById(id);
+		System.out.println("Id: " + personReg[0] + " Name: " + personReg[1] +" Lastname: " + personReg[2] +" Programming Language: " + personReg[3]);
 	}
 
 
