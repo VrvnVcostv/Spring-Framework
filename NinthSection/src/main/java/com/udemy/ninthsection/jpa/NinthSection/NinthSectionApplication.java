@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.udemy.ninthsection.jpa.NinthSection.entities.Address;
 import com.udemy.ninthsection.jpa.NinthSection.entities.Client;
 import com.udemy.ninthsection.jpa.NinthSection.entities.Invoice;
 import com.udemy.ninthsection.jpa.NinthSection.repositories.ClientRepository;
@@ -27,7 +28,7 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		manyToOneFindClientById();
+		oneToMany();
 	}
 
 	@Transactional
@@ -39,6 +40,16 @@ public class NinthSectionApplication implements CommandLineRunner {
 		invoice.setClient(client);
 		Invoice invoiceDb = invoiceRepository.save(invoice);
 		System.out.println(invoiceDb);
+	}
+
+	@Transactional
+	public void oneToMany() {
+		Client client = new Client("Fran", "Moraz");
+		Address address1 = new Address("El Verjel", 1234);
+		Address address2 = new Address("Vasco de Gama", 9875);
+		client.getAddresses().add(address1);
+		client.getAddresses().add(address2);
+		System.out.println(clientRepository.save(client));
 	}
 
 	@Transactional
