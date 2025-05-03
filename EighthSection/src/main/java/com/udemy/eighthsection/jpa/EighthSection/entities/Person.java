@@ -1,10 +1,14 @@
 package com.udemy.eighthsection.jpa.EighthSection.entities;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,8 +22,26 @@ public class Person {
     private String lastname;
     @Column(name = "programming_language")
     private String programmingLanguage;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
     
-    public Person() {}
+    @PrePersist
+    public void prePersist(){
+        System.out.println("Lifecyle Entity Event - PrePersist");
+        this.createdAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate(){
+        System.out.println("Lifecyle Entity Event - PreUpdate");
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public Person() {
+
+    }
     public Person(String name, String lastname) {
         this.name = name;
         this.lastname = lastname;
@@ -58,8 +80,7 @@ public class Person {
     @Override
     public String toString() {
         return "[id=" + id + ", name=" + name + ", lastname=" + lastname + ", programmingLanguage="
-                + programmingLanguage + "]";
+                + programmingLanguage + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt +"]";
     }
-
     
 }
