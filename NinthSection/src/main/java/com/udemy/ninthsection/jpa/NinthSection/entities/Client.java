@@ -1,4 +1,4 @@
-package entities;
+package com.udemy.ninthsection.jpa.NinthSection.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

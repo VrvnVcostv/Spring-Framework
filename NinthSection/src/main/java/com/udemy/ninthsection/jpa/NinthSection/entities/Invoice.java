@@ -1,4 +1,4 @@
-package entities;
+package com.udemy.ninthsection.jpa.NinthSection.entities;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -42,6 +42,12 @@ public class Invoice {
     }
     public void setTotal(Long total) {
         this.total = total;
+    }
+    public Client getClient() {
+        return client;
+    }
+    public void setClient(Client client) {
+        this.client = client;
     }
     @Override
     public String toString() {

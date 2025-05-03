@@ -56,6 +56,16 @@
             "projectName": "SeventhSection",
             "args": "",
             "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-NinthSectionApplication<NinthSection>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.udemy.ninthsection.jpa.NinthSection.NinthSectionApplication",
+            "projectName": "NinthSection",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
         }
     ]
 }
