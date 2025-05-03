@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.udemy.ninthsection.jpa.NinthSection.entities.Client;
 import com.udemy.ninthsection.jpa.NinthSection.entities.Invoice;
@@ -29,6 +30,7 @@ public class NinthSectionApplication implements CommandLineRunner {
 		manyToOneFindClientById();
 	}
 
+	@Transactional
 	public void manyToOne() {
 		Client client = new Client("John", "Doe");
 		clientRepository.save(client);
@@ -39,6 +41,7 @@ public class NinthSectionApplication implements CommandLineRunner {
 		System.out.println(invoiceDb);
 	}
 
+	@Transactional
 	public void manyToOneFindClientById() {
 		Optional<Client> optionalClient = clientRepository.findById(1L);
 		if (optionalClient.isPresent()) {
