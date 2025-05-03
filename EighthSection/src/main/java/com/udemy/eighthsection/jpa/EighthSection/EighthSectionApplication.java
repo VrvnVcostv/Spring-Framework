@@ -35,7 +35,7 @@ public class EighthSectionApplication implements CommandLineRunner {
 		// System.out.println(person);
 		// });
 
-		update();
+		create();
 
 	}
 
