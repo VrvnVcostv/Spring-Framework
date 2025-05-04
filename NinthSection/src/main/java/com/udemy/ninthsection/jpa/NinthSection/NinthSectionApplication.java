@@ -29,7 +29,22 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		removeAddressFindById();
+		oneToManyBidireccional();
+	}
+
+	@Transactional
+	public void oneToManyBidireccional() {
+		Client client = new Client("Fran", "Moraz");
+
+		Invoice invoice1 = new Invoice("House stuff", 5000L);
+		Invoice invoice2 = new Invoice("Gardening stuff", 2500L);
+
+		client.setInvoices(Arrays.asList(invoice1,invoice2));
+
+		invoice1.setClient(client);
+		invoice2.setClient(client);
+
+		System.out.println(clientRepository.save(client));
 	}
 
 	@Transactional
