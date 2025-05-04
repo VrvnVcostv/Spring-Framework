@@ -1,7 +1,8 @@
 package com.udemy.ninthsection.jpa.NinthSection;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -29,7 +30,67 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		oneToManyBidireccional();
+		removeInvoiceBidirectional();
+	}
+
+	@Transactional
+	public void removeInvoiceBidirectional() {
+		Client client = new Client("Fran", "Moras");
+
+		Invoice invoice1 = new Invoice("House stuff", 5000L);
+		Invoice invoice2 = new Invoice("Gardening stuff", 2500L);
+
+		client.addInvoices(invoice1, invoice2);
+
+		System.out.println(clientRepository.save(client));
+
+		Optional<Client> optionalClient2 = clientRepository.findOne(3L);
+		optionalClient2.ifPresent(c -> {
+			Invoice invoice3 = new Invoice("House stuff", 5000L);
+			invoice3.setId(1L);
+			Optional<Invoice> optionalInvoice = Optional.of(invoice3);
+			optionalInvoice.ifPresent(invoice -> {
+				c.removeInvoices(invoice);
+				clientRepository.save(c);
+				System.out.println(c);
+			});
+		});
+	}
+
+	@Transactional
+	public void oneToManyRemoveAddressFindById() {
+		Optional<Client> optionalClient = clientRepository.findOne(1L);
+		optionalClient.ifPresent(client -> {
+			Invoice invoice1 = new Invoice("House stuff", 5000L);
+			Invoice invoice2 = new Invoice("Gardening stuff", 2500L);
+
+			client.addInvoices(invoice1, invoice2);
+
+			System.out.println(clientRepository.save(client));
+
+			Optional<Client> optionalClient2 = clientRepository.findOne(1L);
+			optionalClient2.ifPresent(c -> {
+				Optional<Invoice> optionalInvoice = invoiceRepository.findById(2L);
+				optionalInvoice.ifPresent(invoice -> {
+					c.removeInvoices(invoice);
+					clientRepository.save(c);
+					System.out.println(c);
+				});
+			});
+		});
+	}
+
+	@Transactional
+	public void oneToManyBidireccionalFindById() {
+		Optional<Client> optionalClient = clientRepository.findOne(1L);
+		optionalClient.ifPresent(client -> {
+			Invoice invoice1 = new Invoice("House stuff", 5000L);
+			Invoice invoice2 = new Invoice("Gardening stuff", 2500L);
+
+			client.addInvoices(invoice1, invoice2);
+
+			System.out.println(clientRepository.save(client));
+		});
 	}
 
 	@Transactional
@@ -39,10 +100,7 @@ public class NinthSectionApplication implements CommandLineRunner {
 		Invoice invoice1 = new Invoice("House stuff", 5000L);
 		Invoice invoice2 = new Invoice("Gardening stuff", 2500L);
 
-		client.setInvoices(Arrays.asList(invoice1,invoice2));
-
-		invoice1.setClient(client);
-		invoice2.setClient(client);
+		client.addInvoices(invoice1, invoice2);
 
 		System.out.println(clientRepository.save(client));
 	}
@@ -54,15 +112,17 @@ public class NinthSectionApplication implements CommandLineRunner {
 			Address address1 = new Address("El vergel", 1234);
 			Address address2 = new Address("Vasco de Gama", 9875);
 
-			client.setAddresses(Arrays.asList(address1, address2));
+			Set<Address> addresses = new HashSet<>();
+			addresses.add(address1);
+			addresses.add(address2);
+			client.setAddresses(addresses);
 			clientRepository.save(client);
 
 			System.out.println(client);
 
-			Optional<Client> optionalClient2 = clientRepository.findOne(2L);
+			Optional<Client> optionalClient2 = clientRepository.findOneAddresses(2L);
 			optionalClient2.ifPresent(c -> {
-				Address delete = c.getAddresses().get(0);
-				c.getAddresses().remove(delete); 
+				c.getAddresses().remove(address1);
 				clientRepository.save(c);
 				System.out.println(c);
 			});
@@ -117,7 +177,10 @@ public class NinthSectionApplication implements CommandLineRunner {
 			Client client = optionalClient.orElseThrow();
 			Address address1 = new Address("El Verjel", 1234);
 			Address address2 = new Address("Vasco de Gama", 9875);
-			client.setAddresses(Arrays.asList(address1, address2));
+			Set<Address> addresses = new HashSet<>();
+			addresses.add(address1);
+			addresses.add(address2);
+			client.setAddresses(addresses);
 			System.out.println(clientRepository.save(client));
 		}
 	}

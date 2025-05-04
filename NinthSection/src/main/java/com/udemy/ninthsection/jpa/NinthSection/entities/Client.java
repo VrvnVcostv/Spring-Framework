@@ -1,8 +1,7 @@
 package com.udemy.ninthsection.jpa.NinthSection.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -31,19 +30,32 @@ public class Client {
         joinColumns = @JoinColumn(name = "id_cliente"),
         inverseJoinColumns = @JoinColumn(name = "id_direcciones"), 
         uniqueConstraints = @UniqueConstraint(columnNames = {"id_direcciones"}))
-    private List<Address> addresses;
+    private Set<Address> addresses;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "client")
-    private List<Invoice> invoices;
+    private Set<Invoice> invoices;
 
     public Client() {
-        this.addresses = new ArrayList<>();
-        this.invoices = new ArrayList<>();
+        this.addresses = new HashSet<>();
+        this.invoices = new HashSet<>();
     }
     public Client(String name, String lastname) {
-        this.addresses = new ArrayList<>();
+        this.addresses = new HashSet<>();
+        this.invoices = new HashSet<>();
         this.name = name;
         this.lastname = lastname;
+    }
+    public void addInvoices(Invoice... invoices){
+        for (Invoice invoice : invoices) {
+            this.invoices.add(invoice);
+            invoice.setClient(this);
+        }
+    }
+    public void removeInvoices(Invoice... invoices){
+        for (Invoice invoice : invoices) {
+            this.invoices.remove(invoice);
+            invoice.setClient(null);
+        }
     }
     public Long getId() {
         return id;
@@ -63,16 +75,16 @@ public class Client {
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-    public List<Address> getAddresses() {
+    public Set<Address> getAddresses() {
         return addresses;
     }
-    public void setAddresses(List<Address> addresses) {
+    public void setAddresses(Set<Address> addresses) {
         this.addresses = addresses;
     }
-    public List<Invoice> getInvoices() {
+    public Set<Invoice> getInvoices() {
         return invoices;
     }
-    public void setInvoices(List<Invoice> invoices) {
+    public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
     }
     @Override
