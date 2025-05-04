@@ -1,5 +1,6 @@
 package com.udemy.ninthsection.jpa.NinthSection;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		oneToMany();
+		oneToManyFindById();
 	}
 
 	@Transactional
@@ -50,6 +51,18 @@ public class NinthSectionApplication implements CommandLineRunner {
 		client.getAddresses().add(address1);
 		client.getAddresses().add(address2);
 		System.out.println(clientRepository.save(client));
+	}
+
+	@Transactional
+	public void oneToManyFindById() {
+		Optional<Client> optionalClient = clientRepository.findById(2L);
+		if (optionalClient.isPresent()) {
+		Client client = optionalClient.orElseThrow(); 
+		Address address1 = new Address("El Verjel", 1234);
+		Address address2 = new Address("Vasco de Gama", 9875);
+		client.setAddresses(Arrays.asList(address1, address2));
+		System.out.println(clientRepository.save(client));	
+		}
 	}
 
 	@Transactional
