@@ -29,16 +29,38 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		removeAddress();
+		removeAddressFindById();
+	}
+
+	@Transactional
+	public void removeAddressFindById() {
+		Optional<Client> optionalClient = clientRepository.findById(2L);
+		optionalClient.ifPresent(client -> {
+			Address address1 = new Address("El vergel", 1234);
+			Address address2 = new Address("Vasco de Gama", 9875);
+
+			client.setAddresses(Arrays.asList(address1, address2));
+			clientRepository.save(client);
+
+			System.out.println(client);
+
+			Optional<Client> optionalClient2 = clientRepository.findOne(2L);
+			optionalClient2.ifPresent(c -> {
+				Address delete = c.getAddresses().get(0);
+				c.getAddresses().remove(delete); 
+				clientRepository.save(c);
+				System.out.println(c);
+			});
+		});
 	}
 
 	@Transactional
 	public void removeAddress() {
 		Client client = new Client("Fran", "Moraz");
-		
+
 		Address address1 = new Address("El Verjel", 1234);
 		Address address2 = new Address("Vasco de Gama", 9875);
-		
+
 		client.getAddresses().add(address1);
 		client.getAddresses().add(address2);
 
@@ -77,11 +99,11 @@ public class NinthSectionApplication implements CommandLineRunner {
 	public void oneToManyFindById() {
 		Optional<Client> optionalClient = clientRepository.findById(2L);
 		if (optionalClient.isPresent()) {
-		Client client = optionalClient.orElseThrow(); 
-		Address address1 = new Address("El Verjel", 1234);
-		Address address2 = new Address("Vasco de Gama", 9875);
-		client.setAddresses(Arrays.asList(address1, address2));
-		System.out.println(clientRepository.save(client));	
+			Client client = optionalClient.orElseThrow();
+			Address address1 = new Address("El Verjel", 1234);
+			Address address2 = new Address("Vasco de Gama", 9875);
+			client.setAddresses(Arrays.asList(address1, address2));
+			System.out.println(clientRepository.save(client));
 		}
 	}
 
