@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,10 @@ public class Client {
     private Long id;
     private String name;
     private String lastname;
+
+    @OneToOne
+    private ClientDetails clientDetails;
+    
     
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     //@JoinColumn(name = "client_id")
@@ -87,14 +92,21 @@ public class Client {
     public void setInvoices(Set<Invoice> invoices) {
         this.invoices = invoices;
     }
+    public ClientDetails getClientDetails() {
+        return clientDetails;
+    }
+    public void setClientDetails(ClientDetails clientDetails) {
+        this.clientDetails = clientDetails;
+    }
     @Override
     public String toString() {
         return "{id=" + id 
         + ", name=" + name 
         + ", lastname=" 
         + lastname 
-        + ", addresses=" + addresses 
-        + ", invoices=" + invoices 
+        // + ", addresses=" + addresses 
+        // + ", invoices=" + invoices 
+        + ", client details=" + clientDetails
         + "}";
     }
 }

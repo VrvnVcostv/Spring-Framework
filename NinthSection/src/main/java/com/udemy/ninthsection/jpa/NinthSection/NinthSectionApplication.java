@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.udemy.ninthsection.jpa.NinthSection.entities.Address;
 import com.udemy.ninthsection.jpa.NinthSection.entities.Client;
+import com.udemy.ninthsection.jpa.NinthSection.entities.ClientDetails;
 import com.udemy.ninthsection.jpa.NinthSection.entities.Invoice;
+import com.udemy.ninthsection.jpa.NinthSection.repositories.ClientDetailsRepository;
 import com.udemy.ninthsection.jpa.NinthSection.repositories.ClientRepository;
 import com.udemy.ninthsection.jpa.NinthSection.repositories.InvoiceRepository;
 
@@ -23,6 +25,8 @@ public class NinthSectionApplication implements CommandLineRunner {
 	private ClientRepository clientRepository;
 	@Autowired
 	private InvoiceRepository invoiceRepository;
+	@Autowired
+	private ClientDetailsRepository clientDetailsRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(NinthSectionApplication.class, args);
@@ -30,7 +34,30 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		removeInvoiceBidirectional();
+		oneToOneFindById();
+	}
+
+	@Transactional
+	public void oneToOneFindById() {
+		ClientDetails clientDetails = new ClientDetails(true, 5000);
+		clientDetailsRepository.save(clientDetails);
+		Optional<Client> client = clientRepository.findById(2L);
+		client.ifPresent(c -> {
+			c.setClientDetails(clientDetails);
+			clientRepository.save(c);
+			System.out.println(c);
+		});
+
+	}
+
+	@Transactional
+	public void oneToOne() {
+		ClientDetails clientDetails = new ClientDetails(true, 5000);
+		clientDetailsRepository.save(clientDetails);
+		Client client = new Client("Erba", "Pura");
+		client.setClientDetails(clientDetails);
+		clientRepository.save(client);
+		System.out.println(client);
 	}
 
 	@Transactional
