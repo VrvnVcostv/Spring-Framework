@@ -13,10 +13,13 @@ import org.springframework.transaction.annotation.Transactional;
 import com.udemy.ninthsection.jpa.NinthSection.entities.Address;
 import com.udemy.ninthsection.jpa.NinthSection.entities.Client;
 import com.udemy.ninthsection.jpa.NinthSection.entities.ClientDetails;
+import com.udemy.ninthsection.jpa.NinthSection.entities.Course;
 import com.udemy.ninthsection.jpa.NinthSection.entities.Invoice;
+import com.udemy.ninthsection.jpa.NinthSection.entities.Student;
 import com.udemy.ninthsection.jpa.NinthSection.repositories.ClientDetailsRepository;
 import com.udemy.ninthsection.jpa.NinthSection.repositories.ClientRepository;
 import com.udemy.ninthsection.jpa.NinthSection.repositories.InvoiceRepository;
+import com.udemy.ninthsection.jpa.NinthSection.repositories.StudentRepository;
 
 @SpringBootApplication
 public class NinthSectionApplication implements CommandLineRunner {
@@ -27,6 +30,8 @@ public class NinthSectionApplication implements CommandLineRunner {
 	private InvoiceRepository invoiceRepository;
 	@Autowired
 	private ClientDetailsRepository clientDetailsRepository;
+	@Autowired
+	private StudentRepository studentRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(NinthSectionApplication.class, args);
@@ -34,7 +39,23 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		oneToOneBidirectional();
+		manyToMany();
+	}
+
+	@Transactional
+	public void manyToMany() {
+		Student student1 = new Student("Jano", "Pura");
+		Student student2 = new Student("Erba", "Doe");
+
+		Course course1 = new Course("Curso Java Master", "Andres");
+		Course course2 = new Course("Curso Spring Master", "Andres");
+
+		student1.setCourses(Set.of(course1, course2));
+		student2.setCourses(Set.of(course2));
+
+		studentRepository.saveAll(Set.of(student1,student2));
+		System.out.println(student1);
+		System.out.println(student2);
 	}
 
 	@Transactional
