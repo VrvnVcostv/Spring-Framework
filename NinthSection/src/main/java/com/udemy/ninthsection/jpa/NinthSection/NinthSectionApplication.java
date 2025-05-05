@@ -39,7 +39,28 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		manyToMany();
+		manyToManyFind();
+	}
+
+	@Transactional
+	public void manyToManyFind() {
+		Optional<Student> optionalStudent1 = studentRepository.findById(1L);
+		Optional<Student> optionalStudent2 = studentRepository.findById(2L);
+
+
+		Student student1 = optionalStudent1.get();
+		Student student2 = optionalStudent2.get();
+
+		Course course1 = new Course("Curso Java Master", "Andres");
+		Course course2 = new Course("Curso Spring Master", "Andres");
+
+		student1.setCourses(Set.of(course1, course2));
+		student2.setCourses(Set.of(course2));
+
+		studentRepository.saveAll(Set.of(student1,student2));
+
+		System.out.println(student1);
+		System.out.println(student2);
 	}
 
 	@Transactional
