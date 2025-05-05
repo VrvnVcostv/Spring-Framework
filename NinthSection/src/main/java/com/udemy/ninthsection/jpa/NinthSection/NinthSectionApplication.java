@@ -34,7 +34,20 @@ public class NinthSectionApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		oneToOneFindById();
+		oneToOneBidirectional();
+	}
+
+	@Transactional
+	public void oneToOneBidirectional() {
+		Client client = new Client("Erba", "Pura");
+		ClientDetails clientDetails = new ClientDetails(true, 5000);
+
+		client.setClientDetails(clientDetails);
+		clientDetails.setClient(client);	
+			
+		clientRepository.save(client);
+		
+		System.out.println(client);
 	}
 
 	@Transactional
