@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "TenthSectionApplication",
+            "request": "launch",
+            "mainClass": "com.udemy.tenthsection.crud.TenthSection.TenthSectionApplication",
+            "projectName": "TenthSection"
+        },
+        {
+            "type": "java",
             "name": "EighthSectionApplication",
             "request": "launch",
             "mainClass": "com.udemy.eighthsection.jpa.EighthSection.EighthSectionApplication",

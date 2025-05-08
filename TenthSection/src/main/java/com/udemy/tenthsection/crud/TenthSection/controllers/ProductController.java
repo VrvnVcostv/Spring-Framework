@@ -30,7 +30,7 @@ public class ProductController {
     @Autowired
     private ProductService service;
 
-    @GetMapping("path")
+    @GetMapping("")
     public List<Product> list(){
         return service.findAll();
     }
@@ -52,14 +52,16 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Product> update(@PathVariable Long id, @RequestBody Product product) {
-        return ResponseEntity.status(HttpStatus.OK).body(product);
+        Optional<Product> productOptional = service.update(id,product);
+        if(productOptional.isPresent()){
+            return ResponseEntity.ok(productOptional.orElseThrow());
+        }
+        return ResponseEntity.notFound().build();
     }
     
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
-        Product productId = new Product();
-        productId.setId(id);
-        Optional<Product> productOptional = service.delete(productId);
+        Optional<Product> productOptional = service.delete(id);
         if(productOptional.isPresent()){
             return ResponseEntity.ok(productOptional.orElseThrow());
         }
