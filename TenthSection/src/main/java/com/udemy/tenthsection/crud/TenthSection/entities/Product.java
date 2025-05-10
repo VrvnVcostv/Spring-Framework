@@ -1,6 +1,7 @@
 package com.udemy.tenthsection.crud.TenthSection.entities;
 
 import com.udemy.tenthsection.crud.TenthSection.Validation.IsRequired;
+import com.udemy.tenthsection.crud.TenthSection.Validation.ItExistsDb;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,7 +9,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -19,6 +19,10 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ItExistsDb
+    @IsRequired
+    private String sku;
     
     @IsRequired
     @Size(min=3, max=20)
@@ -52,6 +56,12 @@ public class Product {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public String getSku() {
+        return sku;
+    }
+    public void setSku(String sku) {
+        this.sku = sku;
     }
 
     

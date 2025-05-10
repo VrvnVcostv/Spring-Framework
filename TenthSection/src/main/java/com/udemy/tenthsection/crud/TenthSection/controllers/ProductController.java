@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.udemy.tenthsection.crud.TenthSection.Validation.ProductValidation;
 import com.udemy.tenthsection.crud.TenthSection.entities.Product;
 import com.udemy.tenthsection.crud.TenthSection.services.ProductService;
 

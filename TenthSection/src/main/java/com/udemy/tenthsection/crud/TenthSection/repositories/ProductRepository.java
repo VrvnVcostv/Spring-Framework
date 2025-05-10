@@ -6,4 +6,5 @@ import com.udemy.tenthsection.crud.TenthSection.entities.Product;
 
 public interface ProductRepository extends CrudRepository<Product, Long>{
 
+    boolean existsBySku(String sku);
 }

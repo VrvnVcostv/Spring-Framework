@@ -41,6 +41,7 @@ public class ProductServiceJPA implements ProductService{
         if(update.isPresent()){
             Product prod = update.get();
             prod.setName(product.getName());
+            prod.setSku(product.getSku());
             prod.setPrice(product.getPrice());
             prod.setDescription(product.getDescription());
             return Optional.of(repository.save(prod));
@@ -56,5 +57,11 @@ public class ProductServiceJPA implements ProductService{
             repository.delete(prod);
         });
         return delete;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public boolean existsBySku(String sku) {
+        return repository.existsBySku(sku);
     }
 }

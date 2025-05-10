@@ -23,7 +23,6 @@ public class ProductValidation implements Validator{
         if(product.getDescription() == null || product.getDescription().isBlank()){
             errors.rejectValue("description", null, "it's required!");
         }
-
         if(product.getPrice() == null){
             errors.rejectValue("price", null, "it's required!");
         }else if(product.getPrice() < 100){
