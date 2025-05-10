@@ -18,13 +18,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotEmpty
+    @NotEmpty(message = "{NotEmpty.product.name}")
     @Size(min=3, max=20)
     private String name;
-    @Min(100)
-    @NotNull
+    @Min(message = "{Min.product.price}", value =  100)
+    @NotNull(message = "{NotNull.product.price}")
     private Integer price;
-    @NotEmpty
+    @NotEmpty(message = "{NotEmpty.product.description}")
     private String description;
 
     public Long getId() {
