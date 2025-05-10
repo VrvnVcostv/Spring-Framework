@@ -1,11 +1,14 @@
 package com.udemy.tenthsection.crud.TenthSection.controllers;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.udemy.tenthsection.crud.TenthSection.entities.Product;
@@ -43,13 +46,19 @@ public class ProductController {
     }
     
     @PostMapping
-    public ResponseEntity<?> create(@Valid @RequestBody Product product) {
+    public ResponseEntity<?> create(@Valid @RequestBody Product product, BindingResult result) {
+        if(result.hasFieldErrors()){
+            return validation(result);
+        }
         Product newProduct = service.save(product);
         return ResponseEntity.status(HttpStatus.CREATED).body(newProduct);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> update(@PathVariable Long id, @Valid @RequestBody Product product) {
+    public ResponseEntity<?> update(@Valid @RequestBody Product product, BindingResult result, @PathVariable Long id) {
+        if(result.hasFieldErrors()){
+            return validation(result);
+        }
         Optional<Product> productOptional = service.update(id,product);
         if(productOptional.isPresent()){
             return ResponseEntity.ok(productOptional.orElseThrow());
@@ -64,5 +73,13 @@ public class ProductController {
             return ResponseEntity.ok(productOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    private ResponseEntity<?> validation(BindingResult result) {
+        Map<String, String> errors = new HashMap<>();
+        result.getFieldErrors().forEach(err -> {
+            errors.put(err.getField(), "The field " + err.getField() + " " + err.getDefaultMessage());
+        });
+        return ResponseEntity.badRequest().body(errors);
     }
 }
