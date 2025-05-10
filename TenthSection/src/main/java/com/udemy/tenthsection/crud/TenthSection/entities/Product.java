@@ -1,5 +1,7 @@
 package com.udemy.tenthsection.crud.TenthSection.entities;
 
+import com.udemy.tenthsection.crud.TenthSection.Validation.IsRequired;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,13 +20,13 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotEmpty(message = "{NotEmpty.product.name}")
+    @IsRequired
     @Size(min=3, max=20)
     private String name;
     @Min(message = "{Min.product.price}", value =  100)
-    @NotNull(message = "{NotNull.product.price}")
+    @NotNull
     private Integer price;
-    @NotEmpty(message = "{NotEmpty.product.description}")
+    @IsRequired
     private String description;
 
     public Long getId() {

@@ -1,4 +1,4 @@
-package com.udemy.tenthsection.crud.TenthSection;
+package com.udemy.tenthsection.crud.TenthSection.Validation;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
