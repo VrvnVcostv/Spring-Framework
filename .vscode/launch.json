@@ -2,6 +2,19 @@
     "configurations": [
         {
             "type": "java",
+            "name": "EleventhSectionApplication",
+            "request": "launch",
+            "mainClass": "com.udemy.eleventhsection.crud.EleventhSection.EleventhSectionApplication",
+            "projectName": "EleventhSection"
+        },
+        {
+            "type": "java",
+            "name": "EleventhSectionApplication",
+            "request": "launch",
+            "mainClass": "com.udemy.tenthsection.crud.TenthSection.EleventhSectionApplication"
+        },
+        {
+            "type": "java",
             "name": "TenthSectionApplication",
             "request": "launch",
             "mainClass": "com.udemy.tenthsection.crud.TenthSection.TenthSectionApplication",
