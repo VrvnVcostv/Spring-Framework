@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.crypto.SecretKey;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,7 +19,6 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udemy.eleventhsection.crud.EleventhSection.entities.User;
 
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -81,7 +78,21 @@ public class JwtAuthenticactionFilter extends UsernamePasswordAuthenticationFilt
         body.put("username", username);
         body.put("message", String.format("Hello %s, you logged succesfuly", username));
         response.getWriter().write(new ObjectMapper().writeValueAsString(body));
-        response.setContentType("application/json");
+        response.setContentType(CONTENT_TYPE);
         response.setStatus(HttpStatus.OK.value());
     }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            AuthenticationException failed) throws IOException, ServletException {
+        super.unsuccessfulAuthentication(request, response, failed);
+        Map<String, String> body = new HashMap<>();
+        body.put("message", "Error on authentication, username or password incorrect");
+        body.put("error", failed.getMessage());
+        response.getWriter().write(new ObjectMapper().writeValueAsString(body));
+        response.setContentType(CONTENT_TYPE);
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+    }
+
+    
 }
