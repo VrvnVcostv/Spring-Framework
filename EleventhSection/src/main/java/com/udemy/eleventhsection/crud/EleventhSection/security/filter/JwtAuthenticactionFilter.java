@@ -20,6 +20,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udemy.eleventhsection.crud.EleventhSection.entities.User;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -74,6 +75,7 @@ public class JwtAuthenticactionFilter extends UsernamePasswordAuthenticationFilt
         String token = Jwts.builder()
         .expiration(new Date(System.currentTimeMillis() + 3600000)) //Expiration in 1 hour
         .issuedAt(new Date())
+        .claims(claims)
         .claims(claims)
         .subject(username)
         .signWith(SECRET_KEY)
