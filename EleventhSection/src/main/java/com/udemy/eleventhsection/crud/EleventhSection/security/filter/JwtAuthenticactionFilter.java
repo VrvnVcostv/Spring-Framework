@@ -1,6 +1,8 @@
 package com.udemy.eleventhsection.crud.EleventhSection.security.filter;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.core.exc.StreamReadException;
@@ -18,17 +21,18 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udemy.eleventhsection.crud.EleventhSection.entities.User;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+import static com.udemy.eleventhsection.crud.EleventhSection.security.TokenJwtConfig.*;
+
 public class JwtAuthenticactionFilter extends UsernamePasswordAuthenticationFilter{
 
     private AuthenticationManager authenticationManager;
-
-    private static final SecretKey SECRET_KEY = Jwts.SIG.HS256.key().build();
 
     public JwtAuthenticactionFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
@@ -60,11 +64,18 @@ public class JwtAuthenticactionFilter extends UsernamePasswordAuthenticationFilt
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
         super.successfulAuthentication(request, response, chain, authResult);
+        Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
         
         User user = (User) authResult.getPrincipal();
         String username = user.getUsername();
-        String token = Jwts.builder().subject(username).signWith(SECRET_KEY).compact();
-        response.addHeader("Authorization", "Bearer " + token);
+        String token = Jwts.builder()
+        .expiration(new Date(System.currentTimeMillis() + 3600000)) //Expiration in 1 hour
+        .issuedAt(new Date())
+        .subject(username)
+        .signWith(SECRET_KEY)
+        .claim("authorities", roles)
+        .compact();
+        response.addHeader(HEADER_AUTHORIZATION, PREFIX_TOKEN + token);
         Map<String, String> body = new HashMap<>();
         body.put("token", token);
         body.put("username", username);
@@ -73,8 +84,4 @@ public class JwtAuthenticactionFilter extends UsernamePasswordAuthenticationFilt
         response.setContentType("application/json");
         response.setStatus(HttpStatus.OK.value());
     }
-
-    
-    
-
 }
