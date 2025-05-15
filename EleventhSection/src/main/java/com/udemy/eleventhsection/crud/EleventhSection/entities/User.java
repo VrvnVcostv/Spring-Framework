@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.udemy.eleventhsection.crud.EleventhSection.validation.ItExistsByUsername;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,6 +33,7 @@ public class User {
     @Column(unique = true)
     @NotBlank
     @Size(min = 4, max = 12)
+    @ItExistsByUsername
     private String username;
 
     @NotBlank

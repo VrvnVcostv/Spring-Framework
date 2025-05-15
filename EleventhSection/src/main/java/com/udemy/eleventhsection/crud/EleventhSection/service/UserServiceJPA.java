@@ -51,4 +51,9 @@ public class UserServiceJPA implements UserService{
         return userRepository.save(user);
     }
 
+    @Override
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
+
 }
