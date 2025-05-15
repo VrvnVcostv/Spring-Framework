@@ -1,7 +1,5 @@
 package com.udemy.eleventhsection.crud.EleventhSection.validation;
 
-import java.util.Set;
-
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
