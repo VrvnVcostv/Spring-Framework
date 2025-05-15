@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.udemy.eleventhsection.crud.EleventhSection.entities.User;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -60,17 +61,22 @@ public class JwtAuthenticactionFilter extends UsernamePasswordAuthenticationFilt
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
             Authentication authResult) throws IOException, ServletException {
-        super.successfulAuthentication(request, response, chain, authResult);
         Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
         
-        User user = (User) authResult.getPrincipal();
+        org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authResult.getPrincipal();
+        //TODO add the username
+        Claims claims = Jwts.claims()
+        .add("username", user.getUsername())
+        .add("authorities", new ObjectMapper().writeValueAsString(roles))
+        .build();
+
         String username = user.getUsername();
         String token = Jwts.builder()
         .expiration(new Date(System.currentTimeMillis() + 3600000)) //Expiration in 1 hour
         .issuedAt(new Date())
+        .claims(claims)
         .subject(username)
         .signWith(SECRET_KEY)
-        .claim("authorities", roles)
         .compact();
         response.addHeader(HEADER_AUTHORIZATION, PREFIX_TOKEN + token);
         Map<String, String> body = new HashMap<>();
@@ -85,7 +91,6 @@ public class JwtAuthenticactionFilter extends UsernamePasswordAuthenticationFilt
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
             AuthenticationException failed) throws IOException, ServletException {
-        super.unsuccessfulAuthentication(request, response, failed);
         Map<String, String> body = new HashMap<>();
         body.put("message", "Error on authentication, username or password incorrect");
         body.put("error", failed.getMessage());
