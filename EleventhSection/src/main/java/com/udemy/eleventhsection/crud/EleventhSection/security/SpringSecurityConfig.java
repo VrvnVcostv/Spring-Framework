@@ -37,6 +37,11 @@ public class SpringSecurityConfig {
         return http.authorizeHttpRequests((authz) -> authz
         .requestMatchers(HttpMethod.GET,"/api/user").permitAll()
         .requestMatchers(HttpMethod.POST,"/api/user/register").permitAll()
+        .requestMatchers(HttpMethod.POST,"/api/user").hasRole("ADMIN")
+        .requestMatchers(HttpMethod.POST,"/api/products").hasRole("ADMIN")
+        .requestMatchers(HttpMethod.GET,"/api/products", "/api/products/{id}").hasAnyRole("ADMIN","USER")
+        .requestMatchers(HttpMethod.PUT,"/api/products/{id}").hasRole("ADMIN")
+        .requestMatchers(HttpMethod.DELETE,"/api/products/{id}").hasRole("ADMIN")
         .anyRequest().authenticated())
         .addFilter(new JwtAuthenticactionFilter(authenticationManager()))
         .addFilter(new JwtValidationFilter(authenticationManager()))
