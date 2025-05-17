@@ -7,7 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,6 +21,7 @@ import com.udemy.eleventhsection.crud.EleventhSection.service.UserService;
 
 import jakarta.validation.Valid;
 
+@CrossOrigin(origins = "https://localhost:4200")
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
@@ -31,6 +34,7 @@ public class UserController {
         return service.findAll();
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     private ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result){
         if(result.hasFieldErrors()){
