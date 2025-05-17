@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +17,7 @@ import com.udemy.eleventhsection.crud.EleventhSection.security.filter.JwtAuthent
 import com.udemy.eleventhsection.crud.EleventhSection.security.filter.JwtValidationFilter;
 
 @Configuration
+@EnableMethodSecurity(prePostEnabled = true)
 public class SpringSecurityConfig {
 
 
@@ -37,11 +39,11 @@ public class SpringSecurityConfig {
         return http.authorizeHttpRequests((authz) -> authz
         .requestMatchers(HttpMethod.GET,"/api/user").permitAll()
         .requestMatchers(HttpMethod.POST,"/api/user/register").permitAll()
-        .requestMatchers(HttpMethod.POST,"/api/user").hasRole("ADMIN")
-        .requestMatchers(HttpMethod.POST,"/api/products").hasRole("ADMIN")
-        .requestMatchers(HttpMethod.GET,"/api/products", "/api/products/{id}").hasAnyRole("ADMIN","USER")
-        .requestMatchers(HttpMethod.PUT,"/api/products/{id}").hasRole("ADMIN")
-        .requestMatchers(HttpMethod.DELETE,"/api/products/{id}").hasRole("ADMIN")
+        // .requestMatchers(HttpMethod.POST,"/api/user").hasRole("ADMIN")
+        // .requestMatchers(HttpMethod.POST,"/api/products").hasRole("ADMIN")
+        // .requestMatchers(HttpMethod.GET,"/api/products", "/api/products/{id}").hasAnyRole("ADMIN","USER")
+        // .requestMatchers(HttpMethod.PUT,"/api/products/{id}").hasRole("ADMIN")
+        // .requestMatchers(HttpMethod.DELETE,"/api/products/{id}").hasRole("ADMIN")
         .anyRequest().authenticated())
         .addFilter(new JwtAuthenticactionFilter(authenticationManager()))
         .addFilter(new JwtValidationFilter(authenticationManager()))
